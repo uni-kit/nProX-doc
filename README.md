@@ -1,14 +1,12 @@
-<h1 align="center"> VitePress @sugarat/theme </h1>
+<h1 align="center"> nProX 高效易用、高质量的uts组件库 </h1>
 
-<p align="center">
-简约风的 <a href="https://theme.sugarat.top"  target="_blank"target="_blank">VitePress 博客主题</a> 示例运行项目。
-</p>
-
-<p align="center">
-    <a href="https://atqq.github.io/vitepress-blog-sugar-template/" target="_blank">GitHub Pages Demo</a>
-</p>
+- uniapp-x/uts 组件库；
+- 原生APP、小程序、H5、web等，一套代码多端支持；
+- 组件丰富，功能强大。注重性能、体验和优化；
 
 ## Usage
+
+本地开发node：v21.6.0
 
 先安装 `pnpm`
 
@@ -67,3 +65,11 @@ export default defineConfig({
 ④ 推送 `main` 分支即可
 
 需要进一步修改部署和构建配置，详见`deploy.yml` 文件。
+
+## 文档主题来源
+
+<h1 align="center"> VitePress @sugarat/theme </h1>
+
+<p align="center">
+简约风的 <a href="https://theme.sugarat.top"  target="_blank"target="_blank">VitePress 博客主题</a> 
+</p>
