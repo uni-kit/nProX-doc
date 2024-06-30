@@ -1,4 +1,4 @@
-<h1 align="center"> nProX 高效易用、高质量的uts组件库 </h1>
+<h1 align="center"> nProX <br> 高效易用、高质量的uts组件库 </h1>
 
 - uniapp-x/uts 组件库；
 - 原生APP、小程序、H5、web等，一套代码多端支持；
