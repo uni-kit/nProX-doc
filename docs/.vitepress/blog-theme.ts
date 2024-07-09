@@ -100,7 +100,7 @@ const blogTheme = getThemeConfig({
 
   // 公告
   popover: {
-    title: '公告',
+    title: '联系作者',
     body: [
       { type: 'text', content: '👇公众号👇---👇 微信 👇' },
       {
@@ -131,6 +131,19 @@ const blogTheme = getThemeConfig({
       }
     ],
     duration: 0
+  },
+  authorList: [
+    {
+      nickname: '本人张翠花',
+      url: 'https://sugarat.top/aboutme.html',
+      des: '你的指尖,拥有改变世界的力量'
+    }
+  ],
+  buttonAfterArticle: {
+    openTitle: '打赏作者',
+    closeTitle: '下次一定',
+    content: '<img src="https://img.cdn.sugarat.top/mdImg/MTY0Nzc1NTYyOTE5Mw==647755629193">',
+    icon: 'wechatPay',
   },
 })
 

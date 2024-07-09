@@ -43,6 +43,16 @@ function sidebarDoc(): DefaultTheme.SidebarItem[] {
             ]
         },
         {
+            text: '类型说明',
+            collapsed: false,
+            items: [
+                {
+                    text: '内置类型',
+                    link: 'buildin-type'
+                }
+            ]
+        },
+        {
             text: '导航',
             collapsed: false,
             items: [
