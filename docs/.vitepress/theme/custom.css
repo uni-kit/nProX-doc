@@ -1,0 +1,13 @@
+:root {
+    .VPDoc.has-aside .content-container {
+        max-width: 800px;
+    }
+
+    @media (min-width: 2000px) {
+        --vp-layout-max-width: 70%;
+
+        .VPDoc.has-aside .content-container {
+            max-width: 100%;
+        }
+    }
+}
