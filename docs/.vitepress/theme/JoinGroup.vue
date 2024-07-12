@@ -22,7 +22,6 @@ const props = defineProps({
           <div class="scan-card">
             <img src="https://www.redou.vip/nprox-doc/assets/wx-high.jpg" alt="微信">
             <span>微信交流</span>
-            <br>
           </div>
         </div>
         <p>加好友请备注“nProX”</p>
@@ -42,7 +41,6 @@ const props = defineProps({
         <div class="scan-card">
           <img src="https://www.redou.vip/nprox-doc/assets/wx-high.jpg" alt="微信">
           <span>微信交流</span>
-          <br>
         </div>
       </div>
       <p>加好友请备注“nProX”</p>
