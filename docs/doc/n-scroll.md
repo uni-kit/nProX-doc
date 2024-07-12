@@ -127,4 +127,4 @@
 </style>
 ```
 
-<DemoFrame src="https://www.redou.vip/nprox/#/pages/scroll/custom-refresh-load-npro" />
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/scroll/scroll" />

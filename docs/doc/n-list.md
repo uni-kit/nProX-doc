@@ -129,4 +129,4 @@ nProX下的`n-list`组件使用起来非常快捷省事。开发者不需要关�
 
 ```
 
-<DemoFrame src="https://www.redou.vip/nprox/#/pages/list/refresh-load" />
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/list/list" />
