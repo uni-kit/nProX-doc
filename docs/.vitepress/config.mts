@@ -53,7 +53,7 @@ export default defineConfig({
       { text: '组件文档', link: '/doc/quick-start' },
       { text: '模板', link: '/template/'},
       { text: 'UTS工具', link: '/api/'},
-      { text: '关于作者', link: 'https://sugarat.top/aboutme.html' }
+      { text: '关于作者', link: 'https://www.redou.vip/nprox-doc/aboutme.html' }
     ],
     sidebar: {
       '/': {
