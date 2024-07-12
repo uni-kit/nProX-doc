@@ -1,6 +1,18 @@
 # n-stepper
 
-## Props
+步进器
+
+## 设计哲学 [Design]
+
+- 步进器，支持小数点；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | min | number | false | 1 | 最小值 |  | 
@@ -44,9 +56,81 @@
 | plusBoxDisabledClass | string | false | '' | 右侧图标盒子禁用时的样式类 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | less | 小于最小值时的通知 | number - 值 |
 | over | 大于最大值时的通知 | number - 值 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="计步器" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="page">
+			<n-list-cell>
+				<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="默认的计步器" desc="可以自定义实现各种不同样式" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+				<view class="n-flex-row n-justify-center">
+					<n-stepper v-model="state.value1 as number"></n-stepper>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<view class="n-flex-row n-justify-center">
+					<n-stepper v-model="state.value5 as number" :readOnly="false" minusType="primary" plusType="primary" :min="0" :step="0.3" :max="3.5" radius="none" :minusBoxStyle="minusBoxStyle" :plusBoxStyle="plusBoxStyle" :valueStyle="valueStyle"></n-stepper>
+				</view>
+				<view style="height: 24rpx;"></view>
+				<view class="n-flex-row n-justify-center">
+					<n-stepper v-model="state.value2 as number" minusType="primary" plusType="primary" :min="0" radius="none" :minusBoxStyle="minusBoxStyle" :plusBoxStyle="plusBoxStyle" :valueStyle="valueStyle"></n-stepper>
+				</view>
+				<view style="height: 24rpx;"></view>
+				<view class="n-flex-row n-justify-center">
+					<n-stepper v-model="state.value3 as number" minusBgType="error" minusType="inverse" plusType="inverse" plusBgType="error" :step="2" :min="0" :max="10" radius="base"></n-stepper>
+				</view>
+				<view style="height: 24rpx;"></view>
+				<view class="n-flex-row n-justify-center">
+					<n-stepper v-model="state.value4 as number" minusBgType="error" minusType="inverse" plusType="inverse" plusBgType="error" :step="0.3" :min="0.3" :max="2.3" radius="base"></n-stepper>
+				</view>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="充分的自定义能力" desc="具体能力请看文档,示范以简洁易懂为主" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {reactive} from 'vue'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	type StateType = {
+		value1: number;
+		value2: number;
+		value3: number;
+		value4: number;
+		value5: number;
+	}
+	
+	const state = reactive({
+		value1: 9,
+		value2: 2,
+		value3: 6,
+		value4: 0.3,
+		value5: 2
+	} as StateType)
+	const minusBoxStyle = 'border-width:1px;border-top-left-radius: 6rpx;border-bottom-left-radius:6rpx;border-color:#EBEBEB;width:68rpx;height:68rpx;'
+	const plusBoxStyle = 'border-width:1px;border-top-right-radius: 6rpx;border-bottom-right-radius:6rpx;border-color:#EBEBEB;width:68rpx;height:68rpx;'
+	const valueStyle = 'border-top-width:1px;border-top-color:#EBEBEB;border-bottom-width:1px;border-bottom-color:#EBEBEB;height:68rpx;'
+</script>
+
+<style lang="scss">
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/stepper" />

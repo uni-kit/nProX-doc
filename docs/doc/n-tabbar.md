@@ -1,6 +1,22 @@
 # n-tabbar
 
-## Props
+自定义tabbar
+
+## 设计哲学 [Design]
+
+- 凹凸模式都支持；
+- 支持badge；
+- 支持指示器；
+- 细节到位，全部可配；
+
+自定义tabbar可以灵活实现不同的业务需求，并且在层级上也可控，对于x而言，既然都是原生开发，使用自定义tabbar是个不错的选择。
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | current | number | false | 0 | 当前位置 |  | 
@@ -18,12 +34,14 @@
 | indicatorStyle | string | false | '' | 指示内容的样式 |  | 
 | indicatorBoxStyle | string | false | '' | 指示内容的外层样式 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | tabClicked | tab项被点击时的通知 | number - 点击位置 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 内容 | No |  |
@@ -31,10 +49,84 @@
 | tabs | tabs | No |  |
 | indicator | 指示内容区域 | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | prev | 上一页 |  |
 | next | 下一页 |  |
 | setPage | 跳到某页 | page: number - 跳转到的页码, animated: boolean - 是否带跳转动画 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-bg-inverse n-position-relative n-flex-1">
+		<image :src="cloudImgs.getString('cover.house_white')" mode="aspectFill" class="n-position-absolute" style="left: 0;top: 0;width: 100%;height: 760rpx;"></image>
+		<n-scroll bgType="xxx" type="nested">
+			<nested-scroll-header>
+				<view style="height: 360rpx;"></view>
+			</nested-scroll-header>
+			<nested-scroll-body style="height: 100%;">
+				<view class="n-flex-1">
+					<view class="ti-radius">
+						<n-height bgType="none" height="status-nav"></n-height>
+						<view class="ti-radius-body"></view>
+						<view class="ti-radius-icon">
+							<n-icon name="pin" type="text" size="ll"></n-icon>
+						</view>
+					</view>
+					<tabbar-list @page="toTabbar"></tabbar-list>
+				</view>
+			</nested-scroll-body>
+		</n-scroll>
+		<n-navbar :lefts="leftIcons" :fixed="true" :isSeize="false" bgType="none" itemIconType="inverse" @leftAction="navLeftAction"></n-navbar>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import cloudImgs from '@/common/imgs'
+	
+	import tabbarList from './components/tabbarList.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	function toTabbar(val: string) {
+		uni.navigateTo({
+			url: '/pages/nav/tabbars/' + val
+		})
+	}
+</script>
+
+<style lang="scss">
+	.ti {
+		&-radius {
+			position: relative;
+			
+			&-body {
+				background-color: #FFFFFF;
+				height: 60rpx;
+				border-top-left-radius: 60rpx;
+				border-top-right-radius: 60rpx;
+			}
+			&-icon {
+				position: absolute;
+				right: 60rpx;
+				bottom: 30rpx;
+				width: 60rpx;
+				height: 60rpx;
+				border-radius: 30rpx;
+				justify-content: center;
+				align-items: center;
+				background-color: $n-text-color-forth;
+			}
+		}
+	}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/nav/tabbar" />

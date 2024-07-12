@@ -1,6 +1,20 @@
 # n-image-add
 
-## Props
+图片选择输入框
+
+## 设计哲学 [Design]
+
+- 可定制图标；
+- 可定制描述文字；
+- 一般配合n-image-cell来展示选择的图片；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | bgType | string | false | 'light' | 组件背景色主题 | white,black,transparent,nav,default,primary,success,warning,error,custom,link,light,middle,dark,inverse,page,hover,hover-dark,mask,mask-dark,text,text-second,text-third,text-forth,text-inverse,text-place,text-disabled,border,border-light,border-middle,border-dark,none,gradient | 
@@ -21,8 +35,68 @@
 | boxClass | string | false | '' | 组件样式类 |  | 
 | iconBoxClass | string | false | '' | 图标组件的样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | add | 点击了添加的事件通知 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-bg-inverse n-full-height">
+		<n-navbar :lefts="leftIcons" title="添加图片" @leftAction="navLeftAction"></n-navbar>
+		<view class="n-flex-row n-align-end n-flex-wrap" style="margin-left: 46rpx;margin-top: 32rpx;">
+			<n-image-cell v-for="(img,idx) in images" :key="idx" :src="img" boxStyle="margin-right:14rpx;margin-bottom:14rpx;" @delete="toDeleteImage" @preview="toPreviewImage"></n-image-cell>
+			<n-image-add v-if="images.length<9" @add="toChooseImge" boxStyle="margin-bottom:14rpx;margin-top:16rpx;"></n-image-add>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref, computed} from 'vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const title = ref('')
+	const images = ref([] as string[])
+	
+	const count = computed(():number => {
+		return title.value.length
+	})
+	function toChooseImge() {
+		if (images.value.length >= 9) {
+			return
+		}
+		uni.chooseImage({
+			count: 9 - images.value.length,
+			success: (res) => {
+				images.value = images.value.concat(res.tempFilePaths)
+			},
+			fail: () => {
+				
+			}
+		})
+	}
+	function toDeleteImage(src: string) {
+		const idx = images.value.indexOf(src)
+		images.value.splice(idx, 1)
+	}
+	function toPreviewImage(src: string) {
+		uni.previewImage({
+			current: src,
+			urls: images.value
+		})
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/image-add" />

@@ -1,6 +1,19 @@
 # n-result
 
-## Props
+结果/状态展示组件
+
+## 设计哲学 [Design]
+
+- 快速展示状态/结果，比如暂无内容、网络断开，等；
+- 图标-标题-描述；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | top | string | false | '260rpx' | 距离顶部的距离 |  | 
@@ -24,7 +37,8 @@
 | iconBoxClass | string | false | '' | 图标外层样式类 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | icon |  | No |  |
@@ -32,3 +46,31 @@
 | desc |  | No |  |
 | extra |  | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="结果展示" @leftAction="navLeftAction"></n-navbar>
+		<n-result icon="forbid" iconStyle="font-size:100rpx;" title="不好意思,好像你无权访问" desc="有问题可以申诉,但是现在你看不了" descStyle="margin-top:32rpx;margin-bottom:32rpx;">
+			<template v-slot:extra>
+				<n-button bgType="error" text="申 诉" textType="inverse" radius="ll" boxStyle="width:320rpx;height:72rpx;"></n-button>
+			</template>
+		</n-result>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/result" />

@@ -1,6 +1,18 @@
 # n-select-line
 
-## Props
+与n-input组件一致的展示型组件
+
+## 设计哲学 [Design]
+
+- 图标-label/标题-内容-指示图标；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | icon | string | false | '' | 左侧图标 |  | 
@@ -42,15 +54,72 @@
 | iconBoxClass | string | false | '' | 图标外层样式类 |  | 
 | indicatorBoxClass | string | false | '' | 指示图标外层样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | selectClicked | 组件点击事件通知 | UniPointerEvent - 点击事件 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | label | 标签/标题 | No |  |
 | default | 主要内容 | No |  |
 | extra | 补充内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="选择行" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="不是输入形式的输入" desc="为了便捷设置选择显示的placeholder" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+				<n-select-line label="性别" :value="sex==1?'男':(sex==2?'女':'')" border="bottom" placeholder="请选择您的性别" indicator="arrow-right" boxStyle="padding-left:32rpx;padding-right:32rpx;" @selectClicked="toSelectSex"></n-select-line>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="select-line" desc="看到上面这个就知道使用场景了吧" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+		<n-popup :show="sexVisible">
+			<view class="n-flex-1 n-bg-inverse" style="border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;width: 750rpx;">
+				<n-button icon="boy-solid" iconType="primary" text="男" @buttonClicked="toConfirmSex(1)"></n-button>
+				<n-button icon="girl-solid" iconType="error" text="女" @buttonClicked="toConfirmSex(2)"></n-button>
+				<n-button text="取消" bgType="error" textType="inverse" @buttonClicked="toHideSex"></n-button>
+			</view>
+			<n-height height="x-64rpx" bgType="inverse"></n-height>
+		</n-popup>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const sexVisible = ref(false)
+	const sex = ref(0)
+	
+	function toConfirmSex(i: number) {
+		sex.value = i
+		sexVisible.value = false
+	}
+	function toSelectSex() {
+		sexVisible.value = true
+	}
+	function toHideSex() {
+		sexVisible.value = false
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/select-line" />

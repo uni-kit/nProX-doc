@@ -1,6 +1,20 @@
 # n-notice
 
-## Props
+静态展示型notice提示
+
+## 设计哲学 [Design]
+
+- 静态提示，无动画效果；
+- 可相对、绝对定位；
+- 可调整定位位置；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | position | string | false | 'fixed' | 定位主题 | relative,absolute,fixed,static,sticky | 
@@ -35,15 +49,65 @@
 | indicatorClass | string | false | '' | 指示图标样式类 |  | 
 | indicatorBoxClass | string | false | '' | 指示图标外层样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | noticeClicked | 组件被点击时通知 | UniPointerEvent - 点击事件 |
 | indicatorClicked | 指示图标被点击事件 | UniPointerEvent - 点击事件 |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | show | 显示提示 |  |
 | hide | 隐藏提示 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="notice" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="inverse" >
+			<n-list-cell>
+				<desc-view top="120rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="可移除的提示" desc="内部由定位实现" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:60rpx;margin-right:60rpx;">
+					<template v-slot:extra>
+						<n-button bgType="error" text="已经弹出" :disabled="true" textType="inverse" radius="ll" boxStyle="width:320rpx;height:72rpx;"></n-button>
+					</template>
+				</desc-view>
+				<desc-view top="60rpx" icon="bottom" iconStyle="font-size:60rpx;" title="位置可自由决策" desc="快捷组件.复杂/特殊样式建议自己实现" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:60rpx;margin-right:60rpx;">
+					<template v-slot:extra>
+						<n-button bgType="error" text="弹出" textType="inverse" radius="ll" boxStyle="width:320rpx;height:72rpx;" @buttonClicked="toPopBottom"></n-button>
+					</template>
+				</desc-view>
+			</n-list-cell>
+		</n-list>
+		<n-notice :visible="true" bgType="error" offset="status-nav-16px" icon="topic" text="nProX来袭,规范/效率/质量" textType="inverse" iconType="inverse" radius="ll" :closable="false"></n-notice>
+		<n-notice ref="nnotice" pos="bottom" offset="x-16px" bgType="primary" icon="topic" text="如果不坚持吃饭,是有可能饿死的" indicator="close" radius="ll" :closable="true"></n-notice>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const nnotice = ref<NNoticeComponentPublicInstance|null>(null)
+	
+	function toPopBottom() {
+		nnotice.value?.show?.()
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/pop/notice" />

@@ -1,6 +1,19 @@
 # n-notice-dynamic
 
-## Props
+动态提示，滑出提示
+
+## 设计哲学 [Design]
+
+- 可相对和绝对定位；
+- 动态滑入滑出，体验良好；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | position | string | false | 'fixed' | 定位类型主题 | relative,absolute,fixed,static,sticky | 
@@ -13,19 +26,73 @@
 | iconBoxClass | string | false | '' | 图标盒子样式类 |  | 
 | textClass | string | false | '' | 文字样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | close |  |  |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 内容区域 | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | show |  |  |
 | hide |  |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="动态notice" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="inverse" >
+			<n-list-cell>
+				<desc-view top="120rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="会自动隐藏" desc="支持滑出动画与位置" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:60rpx;margin-right:60rpx;">
+					<template v-slot:extra>
+						<n-button bgType="error" text="弹出" textType="inverse" radius="ll" boxStyle="width:320rpx;height:72rpx;" @buttonClicked="toPop"></n-button>
+					</template>
+				</desc-view>
+				<desc-view top="60rpx" icon="bottom" iconStyle="font-size:60rpx;" title="换个位置试试" desc="支持很多自定义特效" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:60rpx;margin-right:60rpx;">
+					<template v-slot:extra>
+						<n-button bgType="error" text="弹出" textType="inverse" radius="ll" boxStyle="width:320rpx;height:72rpx;" @buttonClicked="toPopBottom"></n-button>
+					</template>
+				</desc-view>
+			</n-list-cell>
+		</n-list>
+		<n-notice-dynamic ref="nnotify"></n-notice-dynamic>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import {NoticeOptionsType} from '@/nProX/types/npro'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const nnotify = ref<NNoticeDynamicComponentPublicInstance|null>(null)
+	
+	function toPop() {
+		nnotify.value?.show?.({pos: 'top', offset: 'status', text: '欢迎使用nProX，一起大胆实现吧'} as NoticeOptionsType)
+	}
+	function toPopBottom() {
+		nnotify.value?.show?.({pos: 'bottom', offset: 'x-32rpx', text: '优秀的设计往往是对空白的极致把控'} as NoticeOptionsType)
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/pop/notice-dynamic" />

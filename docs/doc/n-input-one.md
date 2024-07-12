@@ -1,6 +1,19 @@
 # n-input-one
 
-## Props
+密码，验证码输入框。4-6长度
+
+## 设计哲学 [Design]
+
+- 三种模式：内容框、垂直居中横线、下横线；
+- 数字键盘；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | maxlength | number | false | 4 | 最大输入长度。一般为4,5,6 |  | 
@@ -29,7 +42,8 @@
 | itemClass | string | false | '' | 内容项样式类 |  | 
 | activeItemClass | string | false | '' | 当前内容项样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | keyboardHeightChange | 键盘高度改变时触发事件 | UniInputKeyboardHeightChangeEvent - `event.detail = {height, duration}` |
@@ -40,3 +54,60 @@
 @@property {UniInputBlurEvent} event `event.detail = {value: value}` |  |
 | finish | 输入长度达到最大限制时触发 | string - 输入的内容 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="验证码输入框" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneBox as string" mode="box"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneBox as string" mode="box" :password="true" :maxlength="6" :cursor="showCursor"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneBottom as string" mode="bottom"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneBottom as string" mode="bottom" :password="true"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneMiddle as string" mode="middle"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneMiddle as string" mode="middle" :password="true"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneMiddle2 as string" mode="middle" :maxlength="6"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-input-one v-model="oneMiddle2 as string" mode="middle" :password="true" :maxlength="6"></n-input-one>
+				<view style="height: 20rpx;"></view>
+				<n-button text="切换光标状态" @buttonClicked="toggleCursor"></n-button>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const showCursor = ref(false)
+	const oneBox = ref('6')
+	const oneBottom = ref('57')
+	const oneMiddle = ref('369')
+	const oneMiddle2 = ref('241')
+	
+	function toggleCursor() {
+		showCursor.value = !showCursor.value
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/input-one" />

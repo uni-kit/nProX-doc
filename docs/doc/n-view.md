@@ -1,6 +1,19 @@
 # n-view
 
-## Props
+快速实现多层次的view
+
+## 设计哲学 [Design]
+
+- 支持背景图层；
+- 支持非定位形式；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | disabled | boolean | false | false | 是否禁用 | true, false | 
@@ -31,16 +44,69 @@
 | bgClass | string | false | '' | 背景层样式类 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | error | 背景图加载失败事件 |  |
 | load | 背景图加载成功事件 |  |
 | clicked | 组件点击事件 | UniPointerEvent - 点击事件 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | bg | 背景 | No |  |
 | default | 内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" bgType="none" title="view" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 40rpx;"></view>
+				<n-view ms="base" border="black" bgType="error" radius="base" boxStyle="border-width:3px;height:130rpx;">
+					<n-button height="l" radius="s" bgType="inverse" text="退出登陆" textType="black" textStyle="font-weight:700;"></n-button>
+				</n-view>
+				<view style="height: 40rpx;"></view>
+				<n-view ms="base" border="black" bgType="warning" radius="base" boxStyle="border-width:3px;height:130rpx;">
+					<n-button height="l" radius="s" bgType="warning" text="超级点赞X" textType="black" textStyle="font-weight:700;" boxStyle="box-shadow: inset 0 0 6rpx 18rpx rgba(255, 255, 255, 0.8);"></n-button>
+				</n-view>
+				<view style="height: 40rpx;"></view>
+				<n-view ms="l" :hasBg="true" bgBorder="black" bgBgType="custom" bgRadius="base" left="6px" top="6px" right="-6px" bottom="-6px">
+					<view class="n-border-black n-bg-inverse n-radius-l n-flex-column n-align-center n-justify-center" style="height: 600rpx;border-width:3px;">
+						<text class="n-color-black n-weight-7 n-size-ll">我的酒馆被你打了烊</text>
+					</view>
+				</n-view>
+				<view style="height: 40rpx;"></view>
+				<n-view ms="base" border="black" bgType="error" radius="base" shadow="light" boxStyle="border-width:3px;height:130rpx;">
+					<n-button height="l" radius="s" bgType="inverse" text="nProX是可多样化适配的" textType="black" textStyle="font-weight:700;"></n-button>
+				</n-view>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	
+</script>
+
+<style lang="scss">
+	.v {
+		&-in-shadow {
+			box-shadow: inset 0 0 12rpx rgba(255, 255, 0, 0.7);
+		}
+	}
+</style>
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/box/view" />

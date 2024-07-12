@@ -1,6 +1,18 @@
 # n-step-static
 
-## Props
+一体成型步骤条
+
+## 设计哲学 [Design]
+
+- 步骤条，支持多种样式；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | items | IconTextActiveType[] | true |  | 内容 |  | 
@@ -38,8 +50,57 @@
 | linesBoxClass | string | false | '' | 线条外层盒子样式类 |  | 
 | itemsBoxClass | string | false | '' | 内容项外层盒子样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | itemClicked | 步骤项点击事件 | number - 点击的索引 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view>
+		<n-navbar :lefts="leftIcons" title="step步骤条" @leftAction="navLeftAction"></n-navbar>
+		<n-list >
+			<n-list-cell>
+				<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="一体成型步骤条" desc="支持图标/文字组合" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+				<n-step-static :current="current1" :items="items1" boxStyle="height:140rpx;"></n-step-static>
+				<n-step-static :current="current2" :items="items1" space="80rpx" boxStyle="height:140rpx;"></n-step-static>
+				<n-step-static :current="current3" :items="items2" activeIconBgType="warning" iconBgType="middle" boxStyle="height:140rpx;"></n-step-static>
+				<n-step-static :current="current2" :items="items3" activeIconBgType="warning" iconBgType="middle" boxStyle="height:140rpx;"></n-step-static>
+				<n-step-static :current="current2" :items="items4" :hasText="false" activeIconBgType="warning" iconBgType="middle" left="60rpx" boxStyle="height:140rpx;"></n-step-static>
+				<n-step-static :current="current2" :items="items3" space="0" iconSize="0" boxStyle="height:140rpx;"></n-step-static>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="多种效果" desc="还可以适配不同的效果" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import { IconTextActiveType } from '@/nProX/types/common'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const current1 = ref(0)
+	const current2 = ref(1)
+	const current3 = ref(2)
+	
+	const items1 = [{icon: '/static/tabs/album.png', activeIcon: '/static/tabs/albumH.png', text: '打开APP'}, {icon: '/static/tabs/api.png', activeIcon: '/static/tabs/apiH.png', text: '请求网络'}, {icon: '/static/tabs/radio.png', activeIcon: '/static/tabs/radioH.png', text: '开始唱歌'}] as IconTextActiveType[]
+	const items2 = [{icon: 'edu-solid', text: '教育经历'}, {icon: 'fingerprint', text: '录入指纹'}, {icon: 'layers-solid', text: '保存入库'}] as IconTextActiveType[]
+	const items3 = [{icon:'', text: '也可以'}, {icon:'', text: '这样'}, {icon:'', text: '没有图标'}] as IconTextActiveType[]
+	const items4 = [{icon:'', text: '也可以'}, {icon:'', text: '这样'}, {icon:'', text: '没有图标'}, {icon:'', text: '没有文字'}] as IconTextActiveType[]
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/nav/step" />

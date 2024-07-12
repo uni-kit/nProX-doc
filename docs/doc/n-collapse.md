@@ -1,6 +1,19 @@
 # n-collapse
 
-## Props
+收展组件，支持手风琴效果
+
+## 设计哲学 [Design]
+
+- 可单独使用，不限制展开个数；
+- 可联动使用，一次只能展开一个；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | value | string | false | '' | 该内容的唯一值，手风琴效果时必须设置 |  | 
@@ -25,15 +38,115 @@
 | iconClass | string | false | '' | 图标样式类 |  | 
 | delay | number | false | 0 | onMounted之后延迟delay毫秒之后开始初始化打开/收起状态 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | toggle | 切换打开/收起状态 | boolean - 点击未变化前，内容处于的状态 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | head | 头部内容 | No |  |
 | default | 主体内容区域 | No |  |
 | extra | 额外补充内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="n-collapse" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 32rpx;"></view>
+				<n-collapse :show="boxVisible" bgType="inverse" icon="arrow-down-bold" iconType="inverse" boxStyle="margin-left:32rpx;width:686rpx;" @toggle="onBoxToggle">
+					<template v-slot:head>
+						<view class="n-flex-row n-align-center n-flex-nowrap n-height-l n-bg-error" style="padding-left: 32rpx;padding-right: 32rpx;">
+							<n-icon name="add-bold" type="inverse"></n-icon>
+							<text class="n-color-inverse n-size-l n-flex-1" style="margin-left: 16rpx;">我的百宝箱</text>
+						</view>
+					</template>
+					<template>
+						<view class="n-flex-column n-justify-center n-align-center n-bg-error" style="height: 320rpx;width: 686rpx;">
+							<text class="n-color-inverse n-size-ll">里面东西太多，以至于什么也看不到</text>
+						</view>
+					</template>
+				</n-collapse>
+				<view style="height: 32rpx;"></view>
+				<n-collapse :auto="true" boxStyle="margin-left:32rpx;width:686rpx;" icon="arrow-down-bold" iconType="inverse" @toggle="onToggle">
+					<template v-slot:head>
+						<view class="n-flex-row n-align-center n-flex-nowrap n-height-l n-bg-success" style="padding-left: 32rpx;padding-right: 32rpx;">
+							<n-icon name="add-bold" type="inverse"></n-icon>
+							<text class="n-color-inverse n-size-l n-flex-1" style="margin-left: 16rpx;">我的超级秘密</text>
+						</view>
+					</template>
+					<template>
+						<view class="n-flex-column n-justify-center n-align-center n-bg-success" style="height: 320rpx;width: 686rpx;">
+							<text class="n-color-inverse n-size-ll">好像里面啥也没有</text>
+						</view>
+					</template>
+				</n-collapse>
+				<view style="height: 20rpx;"></view>
+				<text class="n-color-text n-size-base" style="margin-left: 20rpx;">手风琴效果</text>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell v-for="(item,idx) in items" :key="idx">
+				<n-collapse :value="item" :current="current" bgType="inverse" icon="arrow-down-bold" iconType="inverse" boxStyle="margin-left:32rpx;width:686rpx;" @toggle="(e: boolean) => onToggleCollapse(e, item)">
+					<template v-slot:head>
+						<view class="n-flex-row n-align-center n-flex-nowrap n-height-l n-bg-error" style="padding-left: 32rpx;padding-right: 32rpx;">
+							<n-icon name="add-bold" type="inverse"></n-icon>
+							<text class="n-color-inverse n-size-l n-flex-1" style="margin-left: 16rpx;">我的百宝箱{{item}}</text>
+						</view>
+					</template>
+					<template>
+						<view class="n-flex-column n-justify-center n-align-center n-bg-error" style="height: 320rpx;width: 686rpx;">
+							<text class="n-color-inverse n-size-ll">里面东西太多，以至于什么也看不到</text>
+						</view>
+					</template>
+				</n-collapse>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref, onMounted} from 'vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const boxVisible = ref(false)
+	const items = ref(['1','2','3','4','5','6'])
+	const current = ref('1')
+	
+	function onBoxToggle(val: boolean) {
+		boxVisible.value = !val
+	}
+	function onToggle(val: boolean) {
+	}
+	function onToggleCollapse(open: boolean, val: string) {
+		if (open && current.value == val) {
+			current.value = ''
+		} else {
+			current.value = val
+		}
+	}
+	
+	onMounted(() => {
+		setTimeout(() => {
+			boxVisible.value = true
+		}, 2000)
+	})
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/collapse" />

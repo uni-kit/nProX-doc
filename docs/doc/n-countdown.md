@@ -1,6 +1,18 @@
 # n-countdown
 
-## Props
+倒计时。支持自定义格式
+
+## 设计哲学 [Design]
+
+- 格式完全自由可定义；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | time | number | false | 0 | 目标时间戳 |  | 
@@ -30,8 +42,67 @@
 | itemTextClass | string | false | '' | 内容项文字样式类 |  | 
 | indicatorTextClass | string | false | '' | 指示器文字样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | completed | 倒计时完成事件 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="倒计时" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+				<view style="flex-direction: row;align-items: center;justify-content: center;">
+					<n-countdown :time="(new Date('2025-06-07')).getTime()" bgType="error" itemBgType="none" itemTextType="inverse" indicatorTextType="inverse" radius="base"></n-countdown>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="flex-direction: row;align-items: center;justify-content: center;">
+					<text class="n-color-text n-size-ll">距离高考只有</text>
+					<n-countdown :time="(new Date('2025-06-07')).getTime()" tpl="{d}天"></n-countdown>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="flex-direction: row;align-items: center;justify-content: center;">
+					<text class="n-color-text n-size-ll">距离高考只有</text>
+					<n-countdown :time="(new Date('2025-06-07')).getTime()" tpl="{d}天{h}时"></n-countdown>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="flex-direction: row;align-items: center;justify-content: center;">
+					<n-countdown :time="(new Date('2025-06-07')).getTime()" tpl="{d}天{h}时{m}分"></n-countdown>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="flex-direction: row;align-items: center;justify-content: center;">
+					<n-countdown :time="(new Date('2025-06-07')).getTime()" tpl="{d}天{h}时{m}分{s}秒"></n-countdown>
+				</view>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="适配能力" desc="倒计时具备强大的适配能力,具体请看文档" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:46rpx;margin-right:46rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import descView from '@/pages/components/descView.vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+</script>
+
+<style lang="scss" scoped>
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/countdown" />

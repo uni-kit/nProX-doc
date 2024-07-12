@@ -1,6 +1,19 @@
 # n-title
 
-## Props
+快速标题
+
+## 设计哲学 [Design]
+
+- 左中右三段式设计；
+- 每一段都包含左侧图标、中间标题、右侧图标；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | title1 | string | false | '' | 左侧标题 |  | 
@@ -61,16 +74,92 @@
 | rightIcon1Class | string | false | '' | 右侧图标1样式类 |  | 
 | rightIcon2Class | string | false | '' | 右侧图标2样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | leftClicked | 左侧点击事件 |  |
 | centerClicked | 中间点击事件 |  |
 | rightClicked | 右侧点击事件 |  |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 右侧补充内容 | No |  |
 | extra | 补充内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="标题" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="page">
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view class="bt-margin">
+					<h-entry-card title="今日热评榜" desc="n-title: 一个就够了. 快用起来吧"></h-entry-card>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title title1="最简单的形式" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<view class="bt-margin">
+					<n-title bgType="none" leftIcon1="radio-solid" title1="带左侧图标1"></n-title>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title leftIcon2="arrow-right" title1="带左侧图标2" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" rightIcon2="arrow-right" title1="带右侧图标2" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title leftIcon2="close" leftIcon2Type="third" title1="艺术" title2="实用" title3="查看更多" boxStyle="padding-left:32rpx;padding-right:32rpx;" centerStyle="flex:1; margin-left:12rpx;" rightStyle="flex:1;justify-content:flex-end;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" rightIcon1="refresh" title1="带右侧图标/文字" title3="换一批" rightIcon1Type="third" title3Type="third" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title centerIcon1="add" centerIcon2="add" title2="居中带两侧图标"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" leftIcon1="add" leftIcon2="add" title1="左文字" centerIcon1="add" centerIcon2="add" title2="居中" title3="右文字" rightIcon1="plus" rightIcon2="plus" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title title1="我的标题党" :rightBtn="true" btnBgType="primary" title3="查看更多" title3Size="s" boxStyle="padding-left:32rpx;padding-right:32rpx;" btnRadius="ll" btnStyle="padding-left:16rpx;padding-right:16rpx;height:56rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="创意,无限可能" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import hEntryCard from '@/components/hEntryCard.vue'
+
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+</script>
+
+<style lang="scss">
+.bt {
+	&-margin {
+		margin: 0 32rpx;
+	}
+}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/title" />

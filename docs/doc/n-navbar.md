@@ -1,6 +1,27 @@
 # n-navbar
 
-## Props
+自定义导航栏。支持左右侧多item
+
+## 设计哲学 [Design]
+
+- 左中右三段式设计；
+- 左侧支持多item；
+- 中间title支持最右侧带图标；
+- 右侧支持多item；
+- 细节到位，全部可配；
+
+自定义导航栏在现代应用中是非常常用的。
+
+- 层级可控；
+- 样式/内容可控，灵活度高；
+- 开发统一；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | lefts | NavItemType[] | false |  | 左侧按钮组 |  | 
@@ -49,14 +70,16 @@
 | statusNavClass | string | false | '' | 状态栏+导航栏样式类 |  | 
 | navClass | string | false | '' | 导航栏样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | leftAction | 左侧按钮点击事件 | number - 左侧按钮位置。从左到右计数 |
 | centerAction | 中间标题点击事件 |  |
 | rightAction | 右侧按钮点击事件 | number - 右侧按钮位置。从左到右计数 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | left | 左侧按钮区域 | No |  |
@@ -64,3 +87,131 @@
 | right | 右侧按钮区域 | No |  |
 | extra | 补充内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<image :src="cloudImgs.getString('cover.sea')" :style="'position: fixed;left: 0;top: 0;width:750rpx;height:'+statusNavH+'px;'" mode="aspectFill"></image>
+		<n-navbar bgType="none" :lefts="leftIcons" title="导航栏" itemIconType="inverse" titleType="inverse" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="page">
+			<n-list-cell>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" bgType="error" itemIconType="inverse" titleType="inverse" :lefts="lefts" title="导航栏设置背景"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" title="item带图标与文字"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" :rights="rights1" title="右侧按钮文字"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" :rights="rights4" title="带角标"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" :rights="rights2" title="右侧按钮图标"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" :rights="rights3" title="右侧按钮图标文字"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts2" title="左侧多个item" leftItemStyle="width:46rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts2" :rights="rights" title="左右两侧多个item" leftItemStyle="width:46rpx;" rightItemStyle="width:46rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts3" title="特殊样式" leftItemStyle="width:46rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts4" title="按钮式" leftStyle="width:300rpx;" centerStyle="width:150rpx;" rightStyle="width:300rpx;" leftItemStyle="width:46rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts5" title="一体式" leftBgType="primary" leftStyle="margin-left:24rpx;padding-left:26rpx;padding-right:26rpx;width:140rpx;border-radius:20px;height:30px;justify-content:space-between;" rightStyle="width:164rpx;" centerStyle="width:422rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" title="标题带图标" icon="arrow-down"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" title="很长的标题截断需要您自行设置" titleStyle="max-width:300rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" title="很长的标题截断需要您自行设置" icon="arrow-down" titleStyle="max-width:300rpx;"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts" leftStyle="width:72rpx;" centerStyle="width:478rpx;justify-content:flex-start;">
+					<template v-slot:center>
+						<view class="n-flex-row n-align-center">
+							<image class="nav-nav-img n-border-light" mode="aspectFill" :src="cloudImgs.getString('avatar.caiman')"></image>
+							<text class="n-color-nav-title n-size-nav-title">山有木兮木有枝，心悦君兮君不知</text>
+						</view>
+					</template>
+				</n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-navbar :fixed="false" :includeStatus="false" :lefts="lefts1" title="渐变背景色" bgType="none" boxStyle="background-image: linear-gradient(to right, #FFF000, #F8F8F8);"></n-navbar>
+				<view style="height: 40rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-height height="x"></n-height>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	import {getHeight} from '@/nProX/utils/system'
+	import { NavItemType } from '@/nProX/types/npro'
+
+	import cloudImgs from '@/common/imgs'
+	const statusNavH = getHeight('status-nav')
+	
+	const lefts = [{icon: 'arrow-left-bold'}] as NavItemType[]
+	const rights = [{icon: 'add-bold', iconSize: "ll", iconStyle: 'color:#FF6699;'}, {icon: 'close-bold', iconSize: "ll", iconType:'error'}] as NavItemType[]
+	const lefts1 = [{icon: 'arrow-left-bold', text: '返回', textStyle: 'margin-left:10rpx;'}] as NavItemType[]
+	const rights1 = [{text: '发布', bgType: 'primary', textType: 'inverse', style: 'width:56px;height:24px;border-radius:20px;justify-content:center;'}] as NavItemType[]
+	const lefts2 = [{icon: 'arrow-left-bold'}, {icon: 'home-solid'}] as NavItemType[]
+	const rights2 = [{icon: 'top', iconType: 'inverse', bgType: 'primary', style: 'width: 52px;height:24px;border-radius:20px;justify-content:center;'}] as NavItemType[]
+	const lefts3 = [{icon: 'arrow-left-bold'}, {icon: 'home-solid', iconType: 'inverse', bgType: 'primary', style: 'width: 24px;height:24px;border-radius:20px;justify-content:center;'}] as NavItemType[]
+	const rights3 = [{icon: 'top', text: '发布', iconType: 'inverse', textType: 'inverse', textStyle: 'margin-left:6px;', bgType: 'primary', style: 'justify-content:center;border-radius:20px;height:30px;width:72px;'}] as NavItemType[]
+	const lefts4 = [{icon: 'arrow-left-bold'}, {icon: 'home-solid', text: '首页', iconType: 'inverse', textType: 'inverse', textStyle: 'margin-left:6px;', bgType: 'primary', style: 'justify-content:center;border-radius:20px;height:30px;width:72px;'}] as NavItemType[]
+	const rights4 = [{text: '发布', bgType: 'primary', textType: 'inverse', style: 'width:56px;height:24px;border-radius:20px;justify-content:center;overflow:visible;', badge: {bgType: 'error',size: '18rpx',text: '',boxStyle: 'position:absolute;top:0;right:0;'}}] as NavItemType[]
+	const lefts5 = [{icon: 'arrow-left-bold', iconType: 'inverse'}, {icon: 'home-solid', iconType: 'inverse'}] as NavItemType[]
+</script>
+
+<style lang="scss">
+	.nav {
+		&-nav {
+			&-img {
+				width: 30px;
+				height: 30px;
+				border-radius: 30px;
+			}
+		}
+	}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/nav/navbar" />

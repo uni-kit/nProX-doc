@@ -1,6 +1,18 @@
 # n-input
 
-## Props
+快速适配的单行输入框
+
+## 设计哲学 [Design]
+
+- 图标-label-输入框-指示图标 快速适配单行输入框；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | name | string | false | '' | 表单的控件名称 |  | 
@@ -56,7 +68,8 @@
 | boxClass | string | false | '' | 组件样式类 |  | 
 | placeClass | string | false | '' | 提示样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | keyboardHeightChange | 键盘高度改变时触发事件 | UniInputKeyboardHeightChangeEvent - `event.detail = {height, duration}` |
@@ -68,9 +81,149 @@
 | indicatorClicked | 指示图标点击事件 | UniPointerEvent - 点击事件 |
 | inputClicked | 禁用时输入框的点击事件 | UniPointerEvent - 点击事件 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | label | label内容 | No |  |
 | extra | 额外内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="输入框" @leftAction="navLeftAction"></n-navbar>
+		<n-list  bgType="page">
+			<n-list-cell>
+				<n-title bgType="none" title1="快速适配" title1Type="third" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<view class="bi-margin">
+					<n-input v-model="phone as string" type="number" :focus="true" :maxlength="11" icon="phone" height="l" placeholder="输入手机号" space="20rpx" boxStyle="padding-left:10rpx;padding-right:10rpx;"></n-input>
+					<n-input v-model="password as string" :maxlength="24" :password="pwdNoVisible" :indicator="rightEye" icon="lock" height="l" placeholder="密码" space="20rpx" boxStyle="padding-left:10rpx;padding-right:10rpx;" @indicatorClicked="togglePwdVisible"></n-input>
+					<n-input height="l" placeholder="请输入你的真实名字" boxStyle="padding-left:10rpx;padding-right:10rpx;">
+						<template v-slot:label>
+							<view class="n-flex-row n-flex-nowrap n-align-center" style="margin-right: 20rpx;">
+								<text class="n-size-base n-color-error">*</text>
+								<text class="n-size-base n-color-text">你的名字</text>
+							</view>
+						</template>
+					</n-input>
+					<n-input label="你的签名" height="l" placeholder="一个好的签名会陪伴你一辈子" boxStyle="padding-left:10rpx;padding-right:10rpx;">
+						<template v-slot:label>
+							<view class="n-flex-row n-flex-nowrap n-align-center" style="margin-right: 20rpx;">
+								<text class="n-size-base n-color-text">你的名字</text>
+								<text class="n-size-base n-color-error">*</text>
+							</view>
+						</template>
+					</n-input>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" title1="特殊定制" title1Type="third" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<view class="bi-margin">
+					<n-input v-model="code as string" type="number" :maxlength="4" icon="lock" height="l" placeholder="四位验证码" space="20rpx" boxStyle="padding-left:10rpx;padding-right:10rpx;">
+						<template v-slot:extra>
+							<view @click="toGetCode">
+								<text :class="['n-size-s', seconds==0?'n-color-primary':'n-color-third']">{{codeHintText}}</text>
+							</view>
+						</template>
+					</n-input>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" title1="格式化输入" title1Type="third" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<view class="bi-margin">
+					<n-input :modelValue="phone2" :maxlength="13" icon="phone" iconSize="ll" height="l" placeholder="输入手机号" space="20rpx" boxStyle="padding-left:10rpx;padding-right:10rpx;" valueStyle="font-size:36rpx;font-weight:700;" @update:modelValue="onInput"></n-input>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref, computed} from 'vue'
+	import {onLoad, onUnload} from '@dcloudio/uni-app'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	import { formatString } from '@/nProX/utils/utils'
+	
+	let timer: number = 0
+	const pwdNoVisible = ref<boolean>(true)
+	const phone = ref<string>("")
+	const password = ref<string>("123")
+	const code = ref<string>("")
+	const phone2 = ref<string>("176-1077-9055")
+	const seconds = ref<number>(0)
+	
+	const rightEye = computed(():string => {
+		 return pwdNoVisible.value ? 'eye' : 'eye-close'
+	})
+	const codeHintText = computed(():string => {
+		if (seconds.value == 0) {
+			return '获取验证码'
+		}
+		return `${seconds.value}s后获取`
+	})
+	
+	function togglePwdVisible() {
+		pwdNoVisible.value = !pwdNoVisible.value
+	}
+	function makeTimer() {
+		seconds.value = 60
+		timer = setInterval(function() {
+			if (seconds.value >= 1) {
+				seconds.value = seconds.value - 1
+			} else {
+				seconds.value = 0
+				clearInterval(timer)
+				timer = 0
+			}
+		}, 1000)
+	}
+	function toGetCode() {
+		if (seconds.value > 0) {
+			return
+		}
+		makeTimer()
+	}
+	function onInput(val: string) {
+		if (val != phone2.value) {
+			phone2.value = formatString(val.split("-").join(""), [3, 4, 4] as number[], '-')
+		}
+	}
+	
+	onLoad((_: OnLoadOptions) => {
+		// Android下的password如果有初始值需要通过延时设置
+		// 否则不给展示
+		setTimeout(()=>{
+			// state.password = '1234'
+		}, 100)
+	})
+	onUnload(() => {
+		clearInterval(timer)
+	})
+</script>
+
+<style lang="scss">
+.bi {
+	&-margin {
+		margin: 0 32rpx;
+	}
+}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/input" />

@@ -1,6 +1,20 @@
 # n-search
 
-## Props
+搜索框
+
+## 设计哲学 [Design]
+
+- 快速实现搜索框；
+- 支持左侧图标固定；
+- 支持提示带图标；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | name | string | false | '' | 表单的控件名称 |  | 
@@ -46,7 +60,8 @@
 | placeClass | string | false | '' | 占位提示样式类 |  | 
 | valueClass | string | false | '' | 内容样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | keyboardHeightChange | 键盘高度改变时触发事件 | UniInputKeyboardHeightChangeEvent - `event.detail = {height, duration}` |
@@ -55,8 +70,115 @@
 | blur | 输入框失去焦点时触发 | UniInputBlurEvent - `event.detail = {value: value}` |
 | searchClicked | 禁用时输入框的点击事件 | UniPointerEvent - 点击事件 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | extra | 补充内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="搜索框" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="page">
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search position="center" v-model="search as string"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search bgType="error" ps="base" valueType="inverse" iconType="inverse" placeType="inverse" placeIconType="inverse"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search border="primary" position="center"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search :fixIcon="true" iconType="error" placeIconType="error" border="error"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search :fixIcon="true" iconType="error" placeIconType="place" value="还可以提供默认的value"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search position="center" :icon="''" bgType="primary" valueType="inverse" iconType="inverse" placeType="inverse" placeIconType="inverse"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search icon="">
+						<template v-slot:extra>
+							<view>
+								<n-button bgType="error" text="搜索" textType="inverse" border="none" radius="ll" boxStyle="width:160rpx;height:60rpx;"></n-button>
+							</view>
+						</template>
+					</n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search position="center" bgType="primary" valueType="inverse" iconType="inverse" placeType="inverse" placeIconType="inverse" boxStyle="height:126rpx;"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin-left: 32rpx; margin-right: 32rpx;">
+					<n-search :fixIcon="true" bgType="primary" valueType="inverse" iconType="inverse" placeType="inverse" placeIconType="inverse" boxStyle="height:126rpx;padding-left:32rpx;padding-right:32rpx;"></n-search>
+				</view>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const search = ref("")
+</script>
+
+<style lang="scss" scoped>
+.search {
+	&-button {
+		position: absolute;
+		top: 0;
+		right: 32rpx;
+		bottom: 0;
+		flex-direction: row;
+		align-items: center;
+	}
+}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/search" />

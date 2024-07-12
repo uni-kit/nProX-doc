@@ -1,6 +1,20 @@
 # n-tag-group
 
-## Props
+标签群，单多选
+
+## 设计哲学 [Design]
+
+- 标签群，支持单多选；
+- 支持禁用；
+- 可配置不同选择样式；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | value | string[] | true |  | 选中的值，数组 |  | 
@@ -42,9 +56,75 @@
 | selectedTagClass | string | false | '' | 选中时标签样式类 |  | 
 | disabledTagClass | string | false | '' | 禁用时标签样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | overed | 超过限制数量通知 |  |
 | change | 选中的值改变触发的通知 | string[] - 选中的值，数组 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="标签群" @leftAction="navLeftAction"></n-navbar>
+		<n-list bgType="page">
+			<n-list-cell>
+				<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="可以用于展示或单多选" desc="用来展示或者单多选都可以" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+				<n-title bgType="none" title1="单选标签群:支持配置各种样式" title1Type="text" boxStyle="padding-left:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-tag-group :value="oneSelect" :limits="1" :column="4" :items="selections" textLabel="title" valueLabel="id" disabledLabel="disabled" bgType="none" tagSelectedBgType="error" tagSelectedTextType="inverse" boxStyle="margin-left:32rpx;margin-right:32rpx;" @change="onSelectChange1"></n-tag-group>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" title1="多选标签群:支持配置各种样式" title1Type="text" boxStyle="padding-left:32rpx;"></n-title>
+			</n-list-cell>
+			<n-list-cell>
+				<n-tag-group :value="threeSelect" :limits="3" :column="4" :items="selections" textLabel="title" valueLabel="id" disabledLabel="disabled" bgType="none" tagSelectedTextType="error" tagSelectedBorder="error" boxStyle="margin-left:32rpx;margin-right:32rpx;" @change="onSelectChange2"></n-tag-group>
+			</n-list-cell>
+			<n-list-cell>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="灵活选择" desc="复杂样式的单多选建议选择可自定义的check组件" descStyle="margin-top:24rpx;margin-bottom:60rpx;margin-left:46rpx;margin-right:46rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import {ItemSelectionType} from '@/nProX/types/common'
+	import descView from '@/pages/components/descView.vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const oneSelect = ref<string[]>(['6'])
+	const threeSelect = ref<string[]>(['7', '8'])
+	const selections = [
+				{label: '我们', value: '1', disabled: false},
+				{label: '你们', value: '2', disabled: false},
+				{label: '他们', value: '3', disabled: false},
+				{label: '都是', value: '4', disabled: true},
+				{label: '平凡的', value: '5', disabled: false},
+				{label: '好人', value: '6', disabled: false},
+				{label: '一生', value: '7', disabled: false},
+				{label: '平安', value: '8', disabled: false},
+				{label: '渡过', value: '9', disabled: true},
+				{label: '难关', value: '10', disabled: false},
+			] as ItemSelectionType[]
+	
+	function onSelectChange1(val: string[]) {
+		oneSelect.value = val
+	}
+	function onSelectChange2(val: string[]) {
+		threeSelect.value = val
+	}
+</script>
+
+<style lang="scss" scoped>
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/tag-group" />

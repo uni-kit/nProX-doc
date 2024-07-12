@@ -1,6 +1,7 @@
 # n-swiper-v-item
 
-## Props
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | bgType | string | false | '' |  |  | 
@@ -12,7 +13,8 @@
 | boxStyle | string | false | '' |  |  | 
 | boxClass | string | false | '' |  |  | 
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default |  | No |  |

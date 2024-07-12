@@ -1,6 +1,20 @@
 # n-skeleton
 
-## Props
+骨架屏
+
+## 设计哲学 [Design]
+
+- 支持多种形式的适配，满足布局和样式要求；
+- 细节到位，全部可配；
+
+> 骨架屏其实就是一个带有透明度或者背景色动画的占位
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | flex | string | false | 'row' | flex-direction主题 | row,row-reverse,column,column-reverse | 
@@ -29,3 +43,47 @@
 | boxClass | string | false | '' | 组件样式类 |  | 
 | rowsClass | string | false | '' | 行的样式类 |  | 
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="n-skeleton" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+				<n-skeleton :avatar="true" :indicator="false" :rows="2" :rowsWidth="['260rpx', '400rpx']" :rowsHeight="['12rpx', '24rpx']" rowsAlign="start" justify="start"></n-skeleton>
+				<view style="height: 20rpx;"></view>
+				<n-skeleton :avatar="true" :rows="3" :indicator="false" justify="start"></n-skeleton>
+				<view style="height: 20rpx;"></view>
+				<n-skeleton :avatar="true" :rows="3" :indicator="true"></n-skeleton>
+				<view style="height: 20rpx;"></view>
+				<n-skeleton :avatar="true" :indicator="true" :rows="2" :rowsWidth="['260rpx', '400rpx']" :rowsHeight="['12rpx', '24rpx']" rowsAlign="start"></n-skeleton>
+				<view style="height: 20rpx;"></view>
+				<n-skeleton :avatar="false" :indicator="false" :rowsWidth="['600rpx']" :rows="3" rowsAlign="start" justify="start"></n-skeleton>
+				<view style="height: 20rpx;"></view>
+				<view class="n-flex-row n-justify-between n-flex-nowrap">
+					<n-skeleton flex="column" :rows="0" indicatorWidth="160rpx" indicatorHeight="24rpx"></n-skeleton>
+					<n-skeleton flex="column" :rows="0" indicatorWidth="160rpx" indicatorHeight="24rpx"></n-skeleton>
+					<n-skeleton flex="column" :rows="0" indicatorWidth="160rpx" indicatorHeight="24rpx"></n-skeleton>
+					<n-skeleton flex="column" :rows="0" indicatorWidth="160rpx" indicatorHeight="24rpx"></n-skeleton>
+				</view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/skeleton" />

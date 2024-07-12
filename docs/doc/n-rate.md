@@ -1,6 +1,19 @@
 # n-rate
 
-## Props
+星级评级
+
+## 设计哲学 [Design]
+
+- 总星可控；
+- 图标可控；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | total | number | false | 5 | 总图标数量 |  | 
@@ -24,3 +37,46 @@
 | activeIconClass | string | false | '' | 点亮图标的样式类 |  | 
 | activeIconBoxClass | string | false | '' | 点亮图标的外层样式类 |  | 
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view>
+		<n-navbar :lefts="leftIcons" title="rate" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="评分组件" desc="支持数量以及图标/颜色/尺寸" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+				<view class="n-flex-column n-align-center">
+					<n-rate v-model="rate1 as number"></n-rate>
+					<view style="height: 32rpx;"></view>
+					<n-rate v-model="rate2 as number" :total="7" icon="love" activeIcon="love-solid"></n-rate>
+					<view style="height: 32rpx;"></view>
+					<n-rate v-model="rate3 as number" iconType="third" activeIconType="success"></n-rate>
+				</view>
+				<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="多种效果" desc="还可以适配不同的效果" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const rate1 = ref(2)
+	const rate2 = ref(4)
+	const rate3 = ref(5)
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/rate" />

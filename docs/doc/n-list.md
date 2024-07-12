@@ -1,6 +1,24 @@
 # n-list
 
-## Props
+二次封装的list-view。可复用list-item从而提升性能。对于刷新、加载、分页等适配，拿来即用
+
+## 设计哲学 [Design]
+
+- 内置自定义的刷新和加载。当然也可使用原生样式，也可以覆盖我们自定义的；
+- 拿来即用，只需要适配数据加载接口，n-list会帮你管理好一切。方便省事好用；
+- 可自动刷新/加载；
+- 细节到位，全部可配；
+
+nProX下的`n-list`组件使用起来非常快捷省事。开发者不需要关心数据的分页页码逻辑，也不需要去做一些加载频繁触发的限制，等。
+我们内置了pager管理，也对数据的重复拉取做了保护。
+开发者只需要提供数据接口即可。
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | listId | string | false | '' | id |  | 
@@ -31,7 +49,8 @@
 | boxStyle | string | false | '' | 组件样式 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | inited | onMounted触发 |  |
@@ -45,12 +64,14 @@
 | abort | 下拉刷新被中止 | UniRefresherEvent - `event.detail = {dy}` |
 | load | 刷新/加载更多的数据拉取通知 | number - 当前拉取的页码 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 内容 | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | load | 加载/刷新数据 |  |
@@ -62,3 +83,50 @@
 | scrollToTop | 滚动到顶部 |  |
 | scrollToBottom | 滚动到底部 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="刷新和加载" @leftAction="navLeftAction"></n-navbar>
+		<n-list ref="nlist" :autoRefresh="true" :refresherEnabled="true" :loadMoreEnabled="true" refresherDefaultStyle="none" @load="toLoadData">
+			<n-list-cell v-for="(item,idx) in items" :key="idx">
+				<album-comment-cell></album-comment-cell>
+				<view style="height: 16rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import albumCommentCell from '@/components/album/albumCommentCell.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const defaultData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	const items = ref<number[]>([])
+	const nlist = ref<NListComponentPublicInstance|null>(null)
+	
+	function toLoadData(cp: number) {
+		setTimeout(()=>{
+			if (cp == 1) {
+				items.value = [...defaultData]
+			} else {
+				items.value.push(...(defaultData.map((i:number):number=>i+(cp-1)*10)))
+			}
+			nlist.value?.endSuccess?.(cp >= 6 ? false : true)
+		}, 500)
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/list/refresh-load" />

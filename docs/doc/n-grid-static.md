@@ -1,6 +1,23 @@
 # n-grid-static
 
-## Props
+宫格。可指定栏目数
+
+## 设计哲学 [Design]
+
+- 快速实现宫格，内置内容项；
+- 支持外边框以及内分割线；
+- 支持指定栏目数；
+- 内置内容项为 图标/文字-文字-图标/文字 的多种组合，可垂直，可水平，满足大多数需求；
+- 支持badge；
+- 特殊定制需求请使用n-grid；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | items | IconTextThemeType[] | true |  | 内容项 |  | 
@@ -32,8 +49,106 @@
 | iconBoxClass | string | false | '' | 图标组件样式类 |  | 
 | textClass | string | false | '' | 文字样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | itemClicked | 内容项点击事件 | number - 点击的内容项下标 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="宫格" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :items="items" itemHeight="160rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :items="items" iconType="error" mode="left" itemHeight="160rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :hasLine="false" border="none" :items="itemsTwo" :columns="3" iconType="primary" itemHeight="160rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :hasLine="false" border="none" :items="itemsTwo" :columns="3" iconType="warning" itemHeight="160rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :hasLine="false" border="none" :items="itemsThree" :columns="3" :isIcon="false" iconType="third" iconSize="ll" space="24rpx" itemHeight="160rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :hasLine="false" border="none" :items="itemsImg" :columns="3" iconStyle="width:120rpx;height:120rpx;" space="24rpx" itemHeight="320rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-grid-static :hasLine="false" border="none" :items="itemsMix" :columns="3" space="24rpx" itemHeight="320rpx" boxStyle="margin-left:32rpx;margin-right:32rpx;background-color:#FFFFFF;"></n-grid-static>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import { IconTextThemeType } from '@/nProX/types/npro';
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	import cloudImgs from '@/common/imgs'
+	
+	const items = [{
+		icon: 'club',
+		text: '校友'
+	}, {
+		icon: 'film',
+		text: '电影'
+	}, {
+		icon: 'task',
+		text: '计划'
+	}, {
+		icon: 'radio-button',
+		text: '戏曲'
+	}, {
+		icon: 'camera-solid',
+		text: '自拍'
+	}]  as IconTextThemeType[]
+	const itemsTwo = [{
+		icon: 'club',
+		text: '校友'
+	}, {
+		icon: 'film',
+		text: '电影'
+	}, {
+		icon: 'task',
+		text: '计划'
+	}]  as IconTextThemeType[]
+	const itemsThree = [{
+		icon: '10K+',
+		text: '校友'
+	}, {
+		icon: '6K+',
+		text: '电影'
+	}, {
+		icon: '298',
+		text: '计划'
+	}]  as IconTextThemeType[]
+	const itemsImg = [{icon: cloudImgs.getString('avatar.girl')!, text: '女一号'}, {icon: cloudImgs.getString('avatar.girl_cat')!, text: '女二号', iconStyle: 'width:200rpx;height:200rpx;'}, {icon: cloudImgs.getString('avatar.cat')!, text: '女三号'}] as IconTextThemeType[]
+	const itemsMix = [{icon: 'task', text: '计划'}, {icon: cloudImgs.getString('avatar.girl')!, text: '女一号'}, {icon: cloudImgs.getString('avatar.girl_cat')!, text: '女二号', iconStyle: 'width:200rpx;height:200rpx;'}] as IconTextThemeType[]
+</script>
+
+<style lang="scss" scoped>
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/grid-static" />

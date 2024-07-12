@@ -1,6 +1,7 @@
 # n-swiper-v
 
-## Props
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | width | string | false | '750rpx' |  |  | 
@@ -23,17 +24,20 @@
 | boxStyle | string | false | '' |  |  | 
 | boxClass | string | false | '' |  |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | change |  |  |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default |  | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | inMoving |  |  |

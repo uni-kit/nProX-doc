@@ -1,6 +1,19 @@
 # n-tabs-v
 
-## Props
+竖向滚动切换tabs
+
+## 设计哲学 [Design]
+
+- 自动居中；
+- 指示器动画；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | items | ItemBadgeType[] | true |  | 内容数组 |  | 
@@ -42,18 +55,123 @@
 | activeItemClass | string | false | '' | 当前tab项样式类 |  | 
 | indicatorClass | string | false | '' | 指示内容样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | change | 点击tab时的通知 | number - 点击的tab位置索引 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | indicator | 自定义指示内容 | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | toCurrentIndex | 滚动到某个位置 | index: number - 位置索引 |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="tabs-v" @leftAction="navLeftAction"></n-navbar>
+		<view class="n-flex-1">
+			<view style="height: 40rpx;"></view>
+			<view class="n-flex-row n-justify-between" style="margin: 0 32rpx;">
+				<n-tabs-v :value="currentV" :items="tabs1" :delay="50" :updateTime="upTime" bgType="inverse" width="90rpx" space="0"
+					scrollSize="400rpx" indicatorType="error" itemStyle="padding-left:18rpx;"
+					@change="toChangeV"></n-tabs-v>
+				<n-tabs-v :value="currentV" :items="tabs1" :delay="50" :updateTime="upTime" bgType="inverse" width="90rpx" space="0"
+					justify="center" scrollSize="400rpx" indicatorType="error" itemStyle="padding-left:18rpx;"
+					@change="toChangeV"></n-tabs-v>
+				<n-tabs-v :value="currentV" :items="tabs1" :delay="50" :updateTime="upTime" bgType="inverse" width="90rpx" space="0"
+					justify="space-between" scrollSize="400rpx" indicatorType="error"
+					itemStyle="padding-left:18rpx;" @change="toChangeV"></n-tabs-v>
+				<n-tabs-v :value="currentV3" :items="tabs3" :delay="50" :updateTime="upTime" bgType="inverse" width="90rpx" space="0"
+					activeType="error" indicatorType="error" scrollSize="400rpx" itemStyle="padding-left:18rpx;"
+					@change="toChangeV3"></n-tabs-v>
+				<n-tabs-v :value="currentV4" :items="tabs4" :delay="50" :updateTime="upTime" bgType="inverse" width="180rpx" space="0"
+					activeType="warning" indicatorType="warning" scrollSize="400rpx" itemStyle="padding-left:18rpx;"
+					@change="toChangeV4"></n-tabs-v>
+			</view>
+			<view style="height: 40rpx;"></view>
+			<n-cell bgType="inverse" border="bottom" title="左右联动" value="tabs-v左右联动" indicator="arrow-right-bold"
+				@cellClicked="toPage"></n-cell>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import { ref } from 'vue'
+	import {onReady} from '@dcloudio/uni-app'
+	import { ItemBadgeType } from '@/nProX/types/npro'
+	import { useNav } from '@/service/useNav'
+	const { leftIcons, navLeftAction } = useNav()
+
+	const tabs1 = [
+		{ label: '我的', value: '1' },
+		{ label: '你的', value: '2' },
+		{ label: 'Ta的', value: '3' }
+	] as ItemBadgeType[]
+	const tabs3 = [
+		{ label: '一起', value: '1' },
+		{ label: '努力', value: '2' },
+		{ label: '加油', value: '3' },
+		{ label: '奋斗', value: '4' },
+		{ label: '争取', value: '5' },
+		{ label: '美好', value: '6' },
+		{ label: '未来', value: '7' },
+		{ label: '共建', value: '8' },
+		{ label: '幸福', value: '9' },
+		{ label: '家园', value: '10' },
+		{ label: '享受', value: '11' },
+		{ label: '快乐', value: '12' },
+		{ label: '人生', value: '13' }
+	] as ItemBadgeType[]
+	const tabs4 = [
+		{ label: '我们', value: '1' },
+		{ label: '一起', value: '2' },
+		{ label: '把家还', value: '3' },
+		{ label: '好吗', value: '4' },
+		{ label: '可不可以', value: '5' },
+		{ label: '要不要得', value: '6' },
+		{ label: '好的', value: '7' },
+		{ label: '收到', value: '8' },
+		{ label: '同意', value: '9' }
+	] as ItemBadgeType[]
+	const upTime = ref(0)  // 在合适的时机通知刷新
+	const currentV = ref(0)
+	const currentV3 = ref(0)
+	const currentV4 = ref(0)
+
+	function toChangeV(i : number) {
+		currentV.value = i
+	}
+	function toChangeV3(i : number) {
+		currentV3.value = i
+	}
+	function toChangeV4(i : number) {
+		currentV4.value = i
+	}
+	function toPage() {
+		uni.navigateTo({
+			url: '/pages/nav/tabs/v_scroll_y'
+		})
+	}
+	
+	onReady(() => {
+		upTime.value = 1
+	})
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/nav/tabs-v" />

@@ -1,6 +1,20 @@
 # n-button
 
-## Props
+按钮。支持多图标
+
+## 设计哲学 [Design]
+
+- 图标-文字-图标 三段式设计。可随意调整内容和布局；
+- hover效果；
+- 支持loading以及禁用；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | bgType | string | false | '' | 背景色主题 | white,black,transparent,nav,default,primary,success,warning,error,custom,link,light,middle,dark,inverse,page,hover,hover-dark,mask,mask-dark,text,text-second,text-third,text-forth,text-inverse,text-place,text-disabled,border,border-light,border-middle,border-dark,none,gradient | 
@@ -36,14 +50,170 @@
 | loadingWidth | string | false | '36rpx' | 加载中图片宽度 |  | 
 | loadingHeight | string | false | '36rpx' | 加载中图片高度 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | buttonClicked | 按钮点击事件。disabled状态下不响应 | UniPointerEvent - 点击事件传递的参数 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 默认内容 | No |  |
 | extra | 额外内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="按钮" @leftAction="navLeftAction"></n-navbar>
+		<n-list>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="主题配置" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<n-button text="默认样式"></n-button>
+				<view class="n-flex-row" style="margin-top: 16rpx;">
+					<view style="flex: 1;">
+						<n-button bgType="primary" textType="inverse" border="none" text="primary"></n-button>
+					</view>
+					<view style="flex: 1;">
+						<n-button bgType="success" textType="inverse" border="none" text="success"></n-button>
+					</view>
+				</view>
+				<view class="n-flex-row" style="margin-top: 16rpx;">
+					<view style="flex: 1;">
+						<n-button bgType="warning" textType="inverse" border="none" text="warning"></n-button>
+					</view>
+					<view style="flex: 1;">
+						<n-button bgType="error" textType="inverse" border="none" text="error"></n-button>
+					</view>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="带图标/图片" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<n-button icon="add" text="左侧带图标"></n-button>
+				<n-button icon2="arrow-right" text="右侧带图标"></n-button>
+				<n-button icon="add" icon2="arrow-right" text="左右侧带图标"></n-button>
+				<view class="n-flex-row" style="margin-top: 16rpx;">
+					<view style="flex: 1;">
+						<n-button bgType="warning" :icon="cloudImgs.getString('avatar.bear')" iconStyle="width: 60rpx; height: 60rpx; border-radius:8rpx;" text="带图片/可以网络图片" textType="inverse" border="none"></n-button>
+					</view>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="带loading切换" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<n-button :loading="true" text="正在为您准备"></n-button>
+				<view class="n-flex-row" style="margin-top: 16rpx;">
+					<view style="flex: 1;">
+						<n-button :loading="loadingVisible" bgType="success" icon="wechat" text="点击切换加载状态" iconType="inverse" textType="inverse" border="none" @buttonClicked="toggleLoading"></n-button>
+					</view>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="禁用状态" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<view style="flex-direction: row;">
+					<view style="flex: 1;">
+						<n-button bgType="error" border="none" :disabled="true" icon="add-bold" text="禁用状态" iconType="inverse" textType="inverse"></n-button>
+					</view>
+					<view style="flex: 1;">
+						<n-button bgType="error" icon="add-bold" text="可用状态" border="none" iconType="inverse" textType="inverse"></n-button>
+					</view>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="样式配置" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<view style="flex-direction: row;">
+					<view style="flex: 1;">
+						<n-button bgType="primary" text="高度" height="s" textType="inverse" border="none"></n-button>
+					</view>
+					<view style="flex: 1;">
+						<n-button bgType="error" text="圆角" height="s" radius="ll" textType="inverse" border="none"></n-button>
+					</view>
+					<view style="flex: 1;">
+						<n-button text="边框" height="s" border="error"></n-button>
+					</view>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-title bgType="none" centerIcon1="topic" centerIcon1Type="primary" centerIcon2="arrow-down-solid" title2="其它" centerIcon2Type="third" centerStyle="padding-left:16rpx;padding-right:16rpx;background-color:#FFFFFF;border-radius:12rpx;height:60rpx;"></n-title>
+				<view style="flex-direction: row;">
+					<view style="flex: 1;">
+						<n-button bgType="primary" icon="wechat" text="微信登录" iconType="inverse" textType="inverse" border="none"></n-button>
+					</view>
+				</view>
+				<view class="n-flex-row" style="margin-top: 16rpx;justify-content: center;">
+					<n-button icon="wechat-circle" radius="ll" iconType="success" iconStyle="font-size: 80rpx;" boxStyle="height: 100rpx;width: 100rpx;" border="none"></n-button>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+				<n-height height="x"></n-height>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	import cloudImgs from '@/common/imgs'
+	
+	const loadingVisible = ref(false)
+	
+	function toggleLoading() {
+		loadingVisible.value = !loadingVisible.value
+	}
+</script>
+
+<style lang="scss">
+.bb {
+	&-button {
+		flex-direction: row;
+		flex: 1;
+		/* #ifndef APP */
+		display: flex;
+		width: 343rpx;
+		/* #endif */
+		height: 100rpx;
+		padding: 0;
+		align-items: center;
+		justify-content: center;
+		border-width: 0px;
+		border-radius: 12rpx;
+		
+		&-text {
+			color: #FFFFFF;
+			font-size: 30rpx;
+			margin-left: 12rpx;
+		}
+	}
+	
+	&-wechat {
+		/* #ifndef APP */
+		display: flex;
+		border: none;
+		/* #endif */
+		/* #ifdef APP */
+		border-width: 0px;
+		/* #endif */
+		flex-direction: row;
+		width: 100rpx;
+		height: 100rpx;
+		justify-content: center;
+		align-items: center;
+		border-radius: 60rpx;
+		padding: 0;
+		margin: 0;
+	}
+}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/button" />

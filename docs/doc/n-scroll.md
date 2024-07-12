@@ -1,6 +1,20 @@
 # n-scroll
 
-## Props
+支持刷新和加载更多的滚动组件
+
+## 设计哲学 [Design]
+
+- 支持刷新和加载更多；
+- 支持自定义刷新和加载；
+- 内置刷新和加载逻辑，用户只需要关注内容接口；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | scrollId | string | false | '' | id |  | 
@@ -33,7 +47,8 @@
 | boxStyle | string | false | '' | 组件样式 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | inited | onMounted触发 |  |
@@ -50,12 +65,14 @@
 | nestedScroll |  |  |
 | nestedStop |  |  |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 内容 | No |  |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | load | 加载/刷新数据 |  |
@@ -67,3 +84,47 @@
 | scrollToTop | 滚动到顶部 |  |
 | scrollToBottom | 滚动到底部 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="n-scroll" @leftAction="navLeftAction"></n-navbar>
+		<n-scroll ref="scroll" :refresherEnabled="true" :loadMoreEnabled="true" :autoRefresh="true" refresherDefaultStyle="none" @load="toLoadData">
+			<view v-for="(item,idx) in items" :key="idx" class="n-flex-column n-align-center n-justify-center n-bg-primary" style="height: 160rpx;margin-bottom: 20rpx;">
+				<text class="n-color-inverse n-weight-7 n-size-ll">{{item}}</text>
+			</view>
+		</n-scroll>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const scroll = ref<NScrollComponentPublicInstance|null>(null)
+	const defaultData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	const items = ref([] as number[])
+	
+	function toLoadData(cp: number) {
+		// 模拟数据请求
+		setTimeout(() => {
+			if (cp == 1) {
+				items.value = [...defaultData]
+			} else {
+				items.value.push(...(defaultData.map((i:number):number=>i+(cp-1)*10)))
+			}
+			scroll.value?.endSuccess?.(cp >= 4 ? false : true)
+		}, 1000)
+	}
+</script>
+
+<style>
+
+</style>
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/scroll/custom-refresh-load-npro" />

@@ -1,6 +1,20 @@
 # n-check-static
 
-## Props
+快速单多选，不可自定义选择项组件
+
+## 设计哲学 [Design]
+
+- 图标-文字 或者 文字-图标 形式。图标位置可变；
+- 用于快速实现单多选；
+- 支持单行或者多行；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | value | string[] | true |  | 选中的值，数组 |  | 
@@ -50,15 +64,85 @@
 | disabledIconClass | string | false | '' | 禁用时图标样式类 |  | 
 | checkedIconClass | string | false | '' | 选中时图标样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | overed | 超出数量限制 |  |
 | checkClicked | 禁用时点击事件 | number - 点击的选择项 |
 | change | 更改选择项通知 | string[] - 选择项的value数组 |
 
-## Expose
+## 开放接口 [Expose]
+
 | Name | Description | Params |
 | --- | --- | --- |
 | refresh | 刷新，重新生成数据 |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view>
+		<n-navbar :lefts="leftIcons" title="单/多选" @leftAction="navLeftAction"></n-navbar>
+		<n-list  bgType="page">
+			<n-list-cell>
+				<view style="height: 20rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin: 32rpx;">
+					<n-check-static :value="model" icon="circle" checkedIcon="check-solid" :items="items1" direction="right" :isBetween="true" itemBoxStyle="background-color:#F5F7F9;padding-left:32rpx;padding-right:32rpx;" boxStyle="border-radius:16rpx;overflow:hidden;" @change="onChange"></n-check-static>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin: 32rpx;">
+					<n-check-static :value="model1" icon="circle" checkedIcon="success" :limits="3" :items="items1" direction="right" :isBetween="true" itemBoxStyle="border-bottom-width:1px;border-bottom-color:#F5F7F9;"></n-check-static>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin: 32rpx;">
+					<n-check-static :value="model2" icon="love" checkedIcon="love-solid" flex="column" :limits="2" :items="items2" textLabel="title" valueLabel="value" disabledLabel="disabled" itemSpace="16rpx"></n-check-static>
+				</view>
+			</n-list-cell>
+			<n-list-cell>
+				<view style="margin: 32rpx;">
+					<n-check :value="models3" bgType="none">
+						<n-check-item v-for="(item,idx) in items3" :key="idx" :value="item.value" :disabled="item.disabled" :border="models3.includes(item.value)?'primary':'all'" :bgType="models3.includes(item.value)?'primary':'inverse'" boxStyle="flex-direction:row;justify-content:center;align-items:center;height:80rpx;margin-bottom:16rpx;border-radius:16rpx;">
+							<text :class="[models3.includes(item.value)?'n-color-inverse':'n-color-text', 'n-size-base']">{{item.label}}</text>
+						</n-check-item>
+					</n-check>
+				</view>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+
+	import {useNav} from '@/service/useNav'
+	import { ItemSelectionType } from '@/nProX/types/common'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const model = ref(['4'])
+	const items1 = ref([{value: '1', label: '香蕉'}, {value: '2', label: '苹果'}, {value: '3', label: '西红柿'}, {value: '4', label: '南瓜'}] as ItemSelectionType[])
+	const model1 = ref(['2'])
+	const items2 = ref([{label: '猪肉', value: '0'}, {label: '牛肉', value: '1', disabled: true}, {label: '羊肉', value: '2'}, {label: '狗肉', value: '3'}] as ItemSelectionType[])
+	const model2 = ref(['2'])
+	const items3 = ref([{label: '自定义猪肉', value: '0'}, {label: '自定义牛肉（不可选）', value: '1', disabled: true}, {label: '自定义羊肉', value: '2'}, {label: '自定义狗肉', value: '3'}] as ItemSelectionType[])
+	const models3 = ref(['2'])
+	
+	function onChange(e: any) {
+		console.log(e)
+	}
+</script>
+
+<style lang="scss" scoped>
+
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/check" />

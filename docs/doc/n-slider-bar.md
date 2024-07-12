@@ -1,6 +1,19 @@
 # n-slider-bar
 
-## Props
+拖动条，范围拖动
+
+## 设计哲学 [Design]
+
+- 支持范围；
+- 支持自定义拖动器；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | value | number | false | 0 | 当前值，range模式下表示选择范围的左侧值 |  | 
@@ -22,16 +35,75 @@
 | indicatorClass | string | false | '' | 拖动部件样式类 |  | 
 | indicator2Class | string | false | '' | 右侧拖动部件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | change | 左侧拖动部件拖动进度改变通知 | number - 值 |
 | change1 | 左侧拖动部件拖动进度改变通知 | number - 值 |
 | change2 | 右侧拖动部件拖动进度改变通知 | number - 值 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 拖动内容 | No |  |
 | other | 拖动内容2 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-bg-inverse n-flex-1">
+		<n-navbar :lefts="leftIcons" title="区间选择" @leftAction="navLeftAction"></n-navbar>
+		<view style="height: 120rpx;"></view>
+		<view class="n-m-ll n-overflow-visible">
+			<n-slider-bar :value="4" @change="toChange"></n-slider-bar>
+		</view>
+		<view style="height: 120rpx;"></view>
+		<view class="n-m-ll n-overflow-visible">
+			<n-slider-bar :value="2" :value2="6" :range="true" @change1="toChange11" @change2="toChange12"></n-slider-bar>
+		</view>
+		<view style="height: 120rpx;"></view>
+		<view class="n-m-ll n-overflow-visible">
+			<n-slider-bar :value="pr" align="end" @change="toGetCurrent">
+				<image src="/static/guide.png" style="width: 68rpx;height: 68rpx;"></image>
+			</n-slider-bar>
+		</view>
+		<view class="n-flex-row n-justify-center" style="margin-top: 32rpx;">
+			<n-button :text="pr+''" textType="inverse" bgType="error" radius="ll" boxStyle="width:360rpx;height:76rpx;"></n-button>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {ref} from 'vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	const pr = ref(8)
+	
+	function toChange(e: number) {
+		console.log(e)
+	}
+	function toChange11(e: number) {
+		console.log(e)
+	}
+	function toChange12(e: number) {
+		console.log(e)
+	}
+	function toGetCurrent(val: number) {
+		pr.value = val
+	}
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/input/slider-bar" />

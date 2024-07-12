@@ -1,6 +1,20 @@
 # n-cell
 
-## Props
+单元行。适配范围广
+
+## 设计哲学 [Design]
+
+- 图标-title-value-desc-图标；
+- 多方位插槽辅助；
+- 支持间距；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | icon | string | false | '' | 图标 |  | 
@@ -41,12 +55,14 @@
 | iconBoxClass | string | false | '' | 图标组件样式类 |  | 
 | indicatorBoxClass | string | false | '' | 指示器图标组件样式类 |  | 
 
-## Emits
+## 事件 [Emits]
+
 | Name | Description | Params |
 | --- | --- | --- | 
 | cellClicked | click event | UniPointerEvent - 点击事件 |
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | label |  | No |  |
@@ -54,3 +70,69 @@
 | extra |  | No |  |
 | more |  | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="单元" @leftAction="navLeftAction"></n-navbar>
+		<n-list >
+			<n-list-cell>
+				<view style="height: 24rpx;"></view>
+				<n-cell icon="code" title="我的知识" bgType="inverse" boxStyle="padding-left:32rpx;"></n-cell>
+				<view style="height: 24rpx;"></view>
+				<n-cell icon="star-solid" title="我的收藏" value="查看更多收藏" bgType="inverse" valueStyle="text-align:right;" indicator="arrow-right" boxStyle="padding-left:32rpx;padding-right:32rpx;"></n-cell>
+				<view style="height: 24rpx;"></view>
+				<n-cell icon="setting" title="通用设置" border="all" radius="s" indicator="arrow-right" bgType="inverse" boxStyle="padding-left:32rpx;padding-right:32rpx;margin-left:32rpx;margin-right:32rpx;"></n-cell>
+				<view style="height: 24rpx;"></view>
+				<n-cell bgType="error" icon="setting" title="通用设置" value="更多设置请查看源码以及文档" iconType="inverse" titleType="inverse" valueType="inverse" indicatorType="inverse" border="none" radius="s" indicator="arrow-right" boxStyle="padding-left:32rpx;padding-right:32rpx;margin-left:32rpx;margin-right:32rpx;"></n-cell>
+				<view style="height: 24rpx;"></view>
+			</n-list-cell>
+			<n-list-cell>
+				<n-cell icon="refresh-bold" title="软件更新" indicator="arrow-right" space="24rpx" bgType="inverse" boxStyle="padding-left:38rpx;padding-right:48rpx;">
+					<template v-slot:extra>
+						<view class="cell-upload n-bg-primary">
+							<n-icon name="top" type="inverse" size="l"></n-icon>
+							<text class="cell-upload-text">有新版本</text>
+						</view>
+					</template>
+				</n-cell>
+				<view style="height: 24rpx;"></view>
+				<n-cell icon="info" title="关于我们" indicator="arrow-right" space="24rpx" bgType="inverse" boxStyle="padding-left:38rpx;padding-right:48rpx;" @cellClicked="toAbout"></n-cell>
+			</n-list-cell>
+		</n-list>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+	
+	function toAbout() {
+		
+	}
+</script>
+
+<style lang="scss" scoped>
+.cell {
+	&-upload {
+		border-radius: 30rpx;
+		height: 50rpx;
+		flex-direction: row;
+		align-items: center;
+		padding: 0 12rpx;
+		
+		&-text {
+			color: #FFFFFF;
+			font-size: 28rpx;
+			margin-left: 6rpx;
+		}
+	}
+}
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/display/cell" />

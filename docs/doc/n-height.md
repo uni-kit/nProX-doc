@@ -1,6 +1,25 @@
 # n-height
 
-## Props
+快速高度。自由组合高度，无需用户计算
+
+## 设计哲学 [Design]
+
+- calc函数支持度不一致，以及有时候继承不太方便，总有特殊时候我们需要依靠屏幕/窗口高度来组合计算高度；
+- screen：屏幕高度；
+- window：窗口高度；
+- status：状态栏高度；
+- nav：导航栏高度；
+- x：安全区高度；
+- !x：前置!表示减去高度；
+- 自由组合：screen-!status-!nav-!x-!120rpx。表示屏幕高度 - 状态栏高度 - 导航栏高度 - 安全区高度 - 120rpx 高度；
+- 细节到位，全部可配；
+
+## 快速使用 [Quick Use]
+
+
+
+## 属性 [Props]
+
 | Name | Type | Required | Default | Description | Choices |
 | --- | --- | --- | --- | --- | --- |
 | flex | string | false | 'column' | flex布局flex-direction主题 | row,row-reverse,column,column-reverse | 
@@ -13,8 +32,40 @@
 | boxStyle | string | false | '' | 组件样式 |  | 
 | boxClass | string | false | '' | 组件样式类 |  | 
 
-## Slots
+## 插槽 [Slots]
+
 | Name | Description | Scoped | Bindings |
 | --- | --- | --- | --- |
 | default | 内容 | No |  |
 
+## 详情示范 [Detail Demo]
+
+
+
+```vue
+<template>
+	<view class="n-flex-1">
+		<n-navbar :lefts="leftIcons" title="高度盒子" @leftAction="navLeftAction"></n-navbar>
+		<n-height height="window-!status-!nav">
+			<desc-view top="60rpx" icon="headphone-dot" iconStyle="font-size:60rpx;" title="高度盒子可以便捷的设置高度" desc="比如height='window'就代表了窗口高度" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			<n-height bgType="success" height="status-nav"></n-height>
+			<desc-view top="36rpx" icon="top" iconStyle="font-size:60rpx;" title="status-nav" desc="上面绿色部分表示状态栏+导航栏" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+			<desc-view top="60rpx" icon="bottom" iconStyle="font-size:60rpx;" title="高度值可以有" desc="screen/window/status/nav/x/50rpx/46px/20/组合" descStyle="margin-top:24rpx;margin-bottom:60rpx;"></desc-view>
+		</n-height>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import descView from '@/pages/components/descView.vue'
+	
+	import {useNav} from '@/service/useNav'
+	const {leftIcons, navLeftAction} = useNav()
+</script>
+
+<style>
+
+</style>
+
+```
+
+<DemoFrame src="https://www.redou.vip/nprox/#/pages/box/height" />
