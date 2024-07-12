@@ -105,7 +105,7 @@ const blogTheme = getThemeConfig({
       { type: 'text', content: '👇公众号👇---👇 微信 👇' },
       {
         type: 'image',
-        src: 'https://img.cdn.sugarat.top/mdImg/MTYxNTAxODc2NTIxMA==615018765210~fmt.webp'
+        src: 'https://www.redou.vip/nprox-doc/assets/contact.png',
       },
       {
         type: 'text',
@@ -119,7 +119,7 @@ const blogTheme = getThemeConfig({
       {
         type: 'button',
         content: '关于作者博客',
-        link: 'https://sugarat.top'
+        link: 'https://www.redou.vip'
       },
       {
         type: 'button',
@@ -127,7 +127,7 @@ const blogTheme = getThemeConfig({
         props: {
           type: 'success'
         },
-        link: 'https://theme.sugarat.top/group.html',
+        link: 'https://www.redou.vip/nprox-doc/group.html',
       }
     ],
     duration: 0
@@ -135,14 +135,14 @@ const blogTheme = getThemeConfig({
   authorList: [
     {
       nickname: '本人张翠花',
-      url: 'https://sugarat.top/aboutme.html',
+      url: 'https://www.redou.vip/aboutme.html',
       des: '你的指尖,拥有改变世界的力量'
     }
   ],
   buttonAfterArticle: {
     openTitle: '打赏作者',
     closeTitle: '下次一定',
-    content: '<img src="https://img.cdn.sugarat.top/mdImg/MTY0Nzc1NTYyOTE5Mw==647755629193">',
+    content: '<img src="https://www.redou.vip/nprox-doc/assets/pay_wx_68.png">',
     icon: 'wechatPay',
   },
 })

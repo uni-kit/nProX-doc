@@ -14,19 +14,18 @@ const props = defineProps({
         <summary>🎉 <span>欢迎加入交流群，查看二维码</span></summary>
         <div class="scan-card-list">
           <div class="scan-card">
-            <img src="https://img.cdn.sugarat.top/mdImg/MTY5NTA0NTAzMjAzMQ==695045032031" alt="QQ交流群">
+            <img src="https://www.redou.vip/nprox-doc/assets/qq.jpg" alt="QQ交流">
             <span>
-              QQ交流群
+              QQ交流
             </span>
-            <a href="https://qm.qq.com/q/rqMyNvGyvS" target="_blank" rel="noopener noreferrer">681489336</a>
           </div>
           <div class="scan-card">
-            <img src="https://sugarat.s3.bitiful.net/qrcode/wechat/theme/group.jpg" alt="微信群">
-            <span>微信交流群</span>
+            <img src="https://www.redou.vip/nprox-doc/assets/wx-high.jpg" alt="微信">
+            <span>微信交流</span>
             <br>
           </div>
         </div>
-        <p>如扫码无法加入，可加好友备注“nProX”</p>
+        <p>加好友请备注“nProX”</p>
       </details>
     </template>
     <template v-else>
@@ -35,19 +34,18 @@ const props = defineProps({
       </p>
       <div v-if="showImg" class="scan-card-list">
         <div class="scan-card">
-          <img src="https://img.cdn.sugarat.top/mdImg/MTY5NTA0NTAzMjAzMQ==695045032031" alt="QQ交流群">
+          <img src="https://www.redou.vip/nprox-doc/assets/qq.jpg" alt="QQ交流">
           <span>
-            QQ交流群
+            QQ交流
           </span>
-          <a href="https://qm.qq.com/q/rqMyNvGyvS" target="_blank" rel="noopener noreferrer">681489336</a>
         </div>
         <div class="scan-card">
-          <img src="https://sugarat.s3.bitiful.net/qrcode/wechat/theme/group.jpg" alt="微信群">
-          <span>微信交流群</span>
+          <img src="https://www.redou.vip/nprox-doc/assets/wx-high.jpg" alt="微信">
+          <span>微信交流</span>
           <br>
         </div>
       </div>
-      <p>如扫码无法加入，可加好友备注“nProX”</p>
+      <p>加好友请备注“nProX”</p>
     </template>
   </div>
 </template>
