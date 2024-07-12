@@ -1,7 +1,7 @@
 <template>
   <div class="phone-model">
     <div class="box">
-      <iframe scrolling="auto" :src="src" sandbox="allow-same-origin allow-scripts allow-popups" seamless></iframe>
+      <iframe scrolling="auto" :src="src" seamless></iframe>
     </div>
   </div>
 </template>
@@ -50,5 +50,6 @@ iframe {
   border-right-width: 0px;
   width: 296px;
   height: 590px;
+  border: none;
 }
 </style>
