@@ -64,7 +64,7 @@ features:
 
 再说，`nProX`是在`nPro`的基础上优化发展而来，`nPro`已经取得了极大的成功。`nProX`更不会让您失望，绝对让您一次开发，不仅拥有多端，而且具备更高性能！
 
-<a href="/doc/why"><a-button type="primary" size="large">让我们出发，去了解、去使用nProX</a-button></a>
+<a href="/doc/why">让我们出发，去了解、去使用nProX</a>
 
 ## 找到我们
 

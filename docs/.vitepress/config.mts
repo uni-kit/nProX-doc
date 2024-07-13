@@ -22,7 +22,7 @@ export default defineConfig({
   // base,
   lang: 'zh-cn',
   title: 'nProX',
-  description: '粥里有勺糖的博客主题，基于 vitepress 实现',
+  description: 'nProX高级组件库，基于 uniapp-x 实现',
   lastUpdated: true,
   // 详见：https://vitepress.dev/zh/reference/site-config#head
   head: [

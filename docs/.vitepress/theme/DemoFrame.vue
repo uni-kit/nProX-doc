@@ -1,7 +1,7 @@
 <template>
   <div class="phone-model">
     <div class="box">
-      <iframe scrolling="auto" :src="src" seamless></iframe>
+      <iframe scrolling="auto" frameborder="0" :src="src" seamless></iframe>
     </div>
   </div>
 </template>

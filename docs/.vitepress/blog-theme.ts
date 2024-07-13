@@ -72,7 +72,6 @@ const blogTheme = getThemeConfig({
     // 当没有推荐文章时的提示，设置为 false 则不展示
     empty: false,
     filter: (page) => {
-      // console.log(page)
       if (page.route.startsWith('/doc/') || page.route.startsWith('/api/') || page.route.startsWith('/template/')) {
         return false
       }
@@ -102,7 +101,7 @@ const blogTheme = getThemeConfig({
   popover: {
     title: '联系作者',
     body: [
-      { type: 'text', content: '👇公众号👇---👇 微信 👇' },
+      { type: 'text', content: '👇公众号👇 ------ 👇 微信 👇' },
       {
         type: 'image',
         src: 'https://www.redou.vip/nprox-doc/assets/contact.png',
